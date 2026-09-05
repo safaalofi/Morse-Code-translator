@@ -2,40 +2,29 @@
 #include <map>
 #include<string>
 using namespace std;
-string ToText(string s,map<char,string> m1){
-    string count,final;
+string ToText(string s,map<string,char>& m2){
+    string final,count;
     for (char c:s){
         if (c=='/'){
             final+=" "; 
-            count="";
         }
         else if (c!=' '){
             count+=c;
         }
-        else if (c==' '){
-            for (auto it=m1.begin(); it!=m1.end(); it++){
-                if (it->second==count){
-                    final+=it->first;
-                }
-            }
+        else if (c==' '&& count !=""){
+            auto it=m2.find(count);
+            final+=it->second;
             count="";
-
         }
     }
     if (count!=""){
-        for (auto it=m1.begin(); it!=m1.end(); it++){
-            if (it->second==count){
-                final+=it->first;
-                }
-            }
-
+        auto it=m2.find(count);
+            final+=it->second;
     }
-
-
 return final;
 }
 
-string ToMorse(string s, map<char,string>m1){
+string ToMorse(string s, map<char,string>& m1){
     string final;
     for (char c:s){
         if (c!=' '){
@@ -44,8 +33,6 @@ string ToMorse(string s, map<char,string>m1){
         final+=" ";}
         else if (c==' '){
             final+="/ ";
-
-
         }
 
 }
@@ -59,7 +46,13 @@ int main(){
     {'L', ".-.."}, {'M',"--"},{'N',"-."},{'O',"---"}, {'P',".--."}, {'Q',"--.-"}, {'R',".-."},{'S',"..."}, {'T',"-"}, {'U',"..-"},{'V',"...-"},{'W',".--"},
     {'X',"-..-"},{'Y',"-.--"},{'Z',"--.."} 
 };
-int n=-1;
+
+   map<string,char> m2 = {
+    {".-", 'A'}, {"-...", 'B'}, {"-.-.", 'C'}, {"-..", 'D'}, {".", 'E'}, {"..-.", 'F'}, {"--.", 'G'}, {"....", 'H'},{"..", 'I'}, {".---", 'J'}, {"-.-", 'K'}, 
+    {".-..", 'L'},{"--", 'M'}, {"-.", 'N'}, {"---", 'O'}, {".--.", 'P'},{"--.-", 'Q'}, {".-.", 'R'}, {"...", 'S'}, {"-", 'T'},{"..-", 'U'}, {"...-", 'V'}, {".--", 'W'}, 
+    {"-..-", 'X'},{"-.--", 'Y'}, {"--..", 'Z'}
+   };
+int n;
 string s;
 while(true){
     cout<<"Menu\n";
@@ -71,7 +64,7 @@ while(true){
     cout<<"Enter the text:"<<endl;
     cin.ignore();
     getline(cin,s);
-    cout<<ToText(s,m1)<<endl;
+    cout<<ToText(s,m2)<<endl;
     continue;
     }
     else if (n==2){
@@ -85,7 +78,7 @@ while(true){
         break;
     }
     else{
-        cout<<"Error, You entered a wrong number!";
+        cout<<"Error, You entered a wrong number!"<<endl;
         continue;
     }
 

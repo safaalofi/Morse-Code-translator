@@ -2,7 +2,7 @@
 #include <map>
 #include<string>
 using namespace std;
-string translate(string s,map<char,string> m1){
+string ToText(string s,map<char,string> m1){
     string count,final;
     for (char c:s){
         if (c=='/'){
@@ -35,7 +35,7 @@ string translate(string s,map<char,string> m1){
 return final;
 }
 
-string reverse(string s, map<char,string>m1){
+string ToMorse(string s, map<char,string>m1){
     string final;
     for (char c:s){
         if (c!=' '){
@@ -71,14 +71,14 @@ while(true){
     cout<<"Enter the text:"<<endl;
     cin.ignore();
     getline(cin,s);
-    cout<<translate(s,m1)<<endl;
+    cout<<ToText(s,m1)<<endl;
     continue;
     }
     else if (n==2){
         cout<<"Enter the text:"<<endl;
         cin.ignore();
         getline(cin,s);
-        cout<<reverse(s,m1)<<endl;
+        cout<<ToMorse(s,m1)<<endl;
         continue;
     }
     else if(n==3){

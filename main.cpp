@@ -4,22 +4,39 @@
 using namespace std;
 string ToText(string s,map<string,char>& m2){
     string final,count;
+    if (s==""){
+        return "Invalid Morse";
+    }
     for (char c:s){
         if (c=='/'){
             final+=" "; 
         }
-        else if (c!=' '){
+        else if (c=='-' || c=='.'){
             count+=c;
         }
-        else if (c==' '&& count !=""){
+        else if (c==' '){
+            if (count!=""){
             auto it=m2.find(count);
+            if(it!=m2.end()){
             final+=it->second;
             count="";
+            }
+            else{
+                return "Invalid Morse";
+            }
+        }
+    }
+        else{
+            return "Invalid Morse";
         }
     }
     if (count!=""){
         auto it=m2.find(count);
-            final+=it->second;
+        if (it!=m2.end()){
+            final+=it->second;}
+        else{
+            return "Invalid Morse";
+        }
     }
 return final;
 }

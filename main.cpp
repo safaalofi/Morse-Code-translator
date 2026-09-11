@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include<string>
+#include <cctype>
 using namespace std;
 string ToText(string s,map<string,char>& m2){
     string final,count;
@@ -43,18 +44,27 @@ return final;
 
 string ToMorse(string s, map<char,string>& m1){
     string final;
+    if(s==""){
+        return "Invalid Morse";
+    }
     for (char c:s){
-        if (c!=' '){
+        if (isalpha(c)){
+        c=toupper(c);
         auto it=m1.find(c);
         final+=it->second;
-        final+=" ";}
+        final+=" ";
+    }
         else if (c==' '){
             final+="/ ";
         }
+        else{
+            return "Invalid Morse";
+        }
 
-}
+
+        }
+
 return final;
-    
 }
 
 int main(){
